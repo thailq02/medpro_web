@@ -165,6 +165,7 @@ export default function LoginForm(props: LoginFormProps) {
           <Button
             className="ml-auto p-0"
             variant={"ghost"}
+            type="button"
             onClick={() => router.push("/forgot-password")}
           >
             Quên mật khẩu

@@ -7,7 +7,6 @@ import {AppContext} from "@/app/(home)/AppProvider";
 import {AvatarUpload} from "@/components/AvatarUpload";
 import {ButtonSubmit} from "@/components/ButtonGlobal";
 import {Button} from "@/components/ui/button";
-import {Calendar} from "@/components/ui/calendar";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {
   Form,
@@ -40,6 +39,8 @@ import {format} from "date-fns";
 import {vi} from "date-fns/locale";
 import {useRouter} from "next/navigation";
 import {useContext, useState} from "react";
+import {DayPicker} from "react-day-picker";
+import "react-day-picker/dist/style.css";
 import {useForm} from "react-hook-form";
 import styles from "./Account.module.scss";
 
@@ -202,8 +203,11 @@ export default function UpdateMeForm() {
                           className="w-full p-0 z-[99999999999999]"
                           align="start"
                         >
-                          <Calendar
+                          <DayPicker
                             mode="single"
+                            captionLayout="dropdown"
+                            fromMonth={new Date(1900, 12)}
+                            toMonth={new Date()}
                             locale={vi}
                             selected={field.value}
                             onSelect={field.onChange}

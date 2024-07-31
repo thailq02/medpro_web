@@ -1,6 +1,7 @@
 # Stage 0
 FROM node:20-slim AS base
 LABEL maintainer="YourName <yourname@domain.com>"
+ENV NEXT_TELEMETRY_DISABLED=1
 
 WORKDIR /app
 COPY package.json package-lock.json next.config.mjs ./

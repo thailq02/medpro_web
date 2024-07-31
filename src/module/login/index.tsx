@@ -1,9 +1,11 @@
 import apiAuthRequest, {IGetMeResBody} from "@/apiRequest/ApiAuth";
+import {ACCESS_TOKEN, REFRESH_TOKEN} from "@/apiRequest/common";
 import LoginForm from "@/module/login/_component/login-form";
 import OAuthLogin from "@/module/login/_component/oauth";
 import {ArrowRightIcon} from "@radix-ui/react-icons";
 import clsx from "clsx";
 import {jwtDecode} from "jwt-decode";
+import {cookies} from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./login.module.scss";
@@ -23,18 +25,20 @@ export default async function Login({
       refreshToken = searchParams.refresh_token as string;
       const decoded = jwtDecode(accessToken);
       expiredAt = decoded.exp ? decoded.exp : 0;
-      const [_, user] = await Promise.all([
-        fetch("/api/auth", {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({
-            access_token: accessToken,
-            refresh_token: refreshToken,
-            expiresAt: expiredAt,
-          }),
-        }),
-        apiAuthRequest.getMe(accessToken),
-      ]);
+      cookies().set(REFRESH_TOKEN, refreshToken, {
+        httpOnly: true,
+        path: "/",
+        secure: true,
+        sameSite: "lax",
+      });
+      cookies().set(ACCESS_TOKEN, accessToken, {
+        httpOnly: true,
+        path: "/",
+        secure: true,
+        sameSite: "lax",
+        expires: expiredAt,
+      });
+      const user = await apiAuthRequest.getMe(accessToken);
       profile = user.payload.data;
     }
   } catch (error) {

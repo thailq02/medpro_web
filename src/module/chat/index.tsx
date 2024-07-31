@@ -44,9 +44,9 @@ export default function ChatPage() {
   const [allUser, setAllUser] = useState<IConversationWithLastMessage[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
 
-  useEffect(() => {
-    socket.connect();
-  }, []);
+  // useEffect(() => {
+  //   socket.connect();
+  // }, []);
 
   useEffect(() => {
     if (!user || !user._id) return;

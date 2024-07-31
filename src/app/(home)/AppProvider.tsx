@@ -38,11 +38,7 @@ export const useAppContext = () => {
 
 export default function AppProvider({children}: {children: React.ReactNode}) {
   const [user, setUserState] = useState<User | null>(() => null);
-  useState(() => {
-    if (typeof window !== "undefined") {
-      socket.connect();
-    }
-  });
+  useState(() => socket.connect());
   const setUser = useCallback(
     (user: User | null) => {
       setUserState(user);

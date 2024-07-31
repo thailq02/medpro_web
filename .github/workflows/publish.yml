@@ -5,6 +5,9 @@ on:
     tags:
       - "[0-9]+.[0-9]+.[0-9]+"
 
+env:
+  NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_ID }}
+
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -15,6 +18,9 @@ jobs:
       - name: Create Environment
         run: |
           echo "NEXT_PUBLIC_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Set Environment
+        run: env | grep "^NEXT_" >> .env.production.local
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3

@@ -23,8 +23,8 @@ RUN npm run build
 FROM base AS runner
 ENV NODE_ENV=production
 ENV PORT=3000
-ARG APP_VERSION
-ENV APP_VERSION=$APP_VERSION
+ARG NEXT_PUBLIC_VERSION
+ENV NEXT_PUBLIC_VERSION=$NEXT_PUBLIC_VERSION
 COPY --from=builder /app/.env* ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public

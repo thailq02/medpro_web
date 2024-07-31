@@ -8,8 +8,8 @@ import {
   REFRESH_TOKEN,
   isClient,
 } from "@/apiRequest/common";
-import { toast } from "@/components/ui/use-toast";
-import { redirect } from "next/navigation";
+import {toast} from "@/components/ui/use-toast";
+import {redirect} from "next/navigation";
 
 type EntityErrorPayload = {
   message: string;
@@ -141,7 +141,7 @@ const request = async <TResponse>(
     } else if (res.status === IStatus.UNAUTHORIZED) {
       if (typeof window !== undefined) {
         if (!clientLogoutRequest) {
-          clientLogoutRequest = fetch("/api-next/auth/logout", {
+          clientLogoutRequest = fetch("/api/auth/logout", {
             method: "POST",
             body: JSON.stringify({force: true}),
             headers: {

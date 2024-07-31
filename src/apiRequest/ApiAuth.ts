@@ -95,7 +95,7 @@ const apiAuthRequest = {
     refresh_token: string;
     expiresAt: number;
   }) =>
-    http.post("/api-next/auth", body, {
+    http.post("/api/auth", body, {
       baseUrl: "",
     }),
 
@@ -128,7 +128,7 @@ const apiAuthRequest = {
     signal?: AbortSignal | undefined
   ) =>
     http.post(
-      "/api-next/auth/logout",
+      "/api/auth/logout",
       {force},
       {
         baseUrl: "",

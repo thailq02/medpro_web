@@ -19,6 +19,10 @@ const nextConfig = {
         hostname: "localhost",
         port: "4004",
       },
+      {
+        protocol: "https",
+        hostname: "be.lequangthai-medpro.io.vn",
+      },
     ],
   },
   sassOptions: {

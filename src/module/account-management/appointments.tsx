@@ -60,13 +60,13 @@ export default function AppointmentForm() {
     }
   };
   return (
-    <Card className="h-full">
-      <CardHeader>
+    <Card className="h-full overflow-y-scroll scrollbar-global">
+      <CardHeader className="account-860:sticky account-860:top-0 account-860:z-10 account-860:bg-white">
         <CardTitle className="border-b border-gray-300 pb-4">
           Lịch khám của bạn
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2 max-h-[450px] h-full overflow-y-scroll">
+      <CardContent className={`space-y-2 ${index.cardContent} no-scrollbar`}>
         {appointment && !!appointment.payload.data.length ? (
           <>
             <Table className={index.table}>
@@ -109,18 +109,18 @@ export default function AppointmentForm() {
                       <TableCell>
                         <div className="flex items-center justify-center">
                           {value.status === true ? (
-                            <CheckCircledIcon className="text-green-600 w-5 h-5" />
+                            <CheckCircledIcon className="text-green-600 size-5" />
                           ) : (
-                            <CrossCircledIcon className="text-red-600 w-5 h-5" />
+                            <CrossCircledIcon className="text-red-600 size-5" />
                           )}
                         </div>
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center justify-center">
                           {value.isPayment === true ? (
-                            <CheckCircledIcon className="text-green-600 w-5 h-5" />
+                            <CheckCircledIcon className="text-green-600 size-5" />
                           ) : (
-                            <CrossCircledIcon className="text-red-600 w-5 h-5" />
+                            <CrossCircledIcon className="text-red-600 size-5" />
                           )}
                         </div>
                       </TableCell>
@@ -159,7 +159,7 @@ export default function AppointmentForm() {
                 return (
                   <div className={index.appointmentBox} key={value._id}>
                     <div className={index.appointmentBoxItem}>
-                      <div className="w-[80px] h-[80px]">
+                      <div className="size-20 flex-shrink-0">
                         <Image
                           src={
                             value?.doctor?.avatar || "/img/avatar/avatar.jpg"
@@ -167,7 +167,7 @@ export default function AppointmentForm() {
                           alt="avatar"
                           width={80}
                           height={80}
-                          className="rounded-full w-full h-full object-cover flex-shrink-0"
+                          className="rounded-full size-full object-cover flex-shrink-0"
                         />
                       </div>
                       <div className="text-sm font-medium">

@@ -177,7 +177,7 @@ export default function Register() {
                               ) : (
                                 <span>Chọn ngày sinh</span>
                               )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                              <CalendarIcon className="ml-auto size-4 opacity-50" />
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
@@ -225,14 +225,14 @@ export default function Register() {
                 />
               </div>
               <div className="!mt-14 pb-1">
-                <span className="font-bold">Have an account?</span>
+                <span className="font-bold">Đã có tài khoản?</span>
                 <Button
                   variant="outline"
                   className="font-medium ml-3"
                   onClick={() => router.push("/login")}
                 >
                   <span>Login</span>
-                  <ArrowRightIcon className="w-4 h-4 ml-2" />
+                  <ArrowRightIcon className="size-4 ml-2" />
                 </Button>
               </div>
             </form>

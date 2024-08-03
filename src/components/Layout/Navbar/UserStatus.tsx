@@ -65,10 +65,7 @@ export default function UserStatus({categoryData}: UserStatusProps) {
   const handleLogout = async () => {
     try {
       await apiAuthRequest.logoutFromNextClientToNextServer();
-      localStorage.removeItem(ACCESS_TOKEN);
-      localStorage.removeItem(REFRESH_TOKEN);
-      localStorage.removeItem(ACCESS_TOKEN_EXPIRED);
-      localStorage.removeItem(PROFILE);
+
       toast({
         title: "Thành công",
         description: "Đăng xuất thành công",
@@ -80,6 +77,12 @@ export default function UserStatus({categoryData}: UserStatusProps) {
         .logoutFromNextClientToNextServer(true)
         .then(() => router.push("/"));
     } finally {
+      if (typeof window !== "undefined") {
+        localStorage.removeItem(ACCESS_TOKEN);
+        localStorage.removeItem(REFRESH_TOKEN);
+        localStorage.removeItem(ACCESS_TOKEN_EXPIRED);
+        localStorage.removeItem(PROFILE);
+      }
       window.location.reload();
     }
   };
@@ -90,7 +93,7 @@ export default function UserStatus({categoryData}: UserStatusProps) {
           className={styles.btnLogin}
           onClick={() => router.push("/login")}
         >
-          <PersonIcon className="mr-2 h-4 w-4" />
+          <PersonIcon className="mr-2 size-4" />
           Tài khoản
         </Button>
       ) : (
@@ -130,7 +133,7 @@ export default function UserStatus({categoryData}: UserStatusProps) {
                 className="cursor-pointer"
                 onClick={() => setIsModalAccountOpen(true)}
               >
-                <PersonIcon className="mr-2 h-4 w-4" />
+                <PersonIcon className="mr-2 size-4" />
                 Quản lý tài khoản
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -140,7 +143,7 @@ export default function UserStatus({categoryData}: UserStatusProps) {
                     className="cursor-pointer"
                     onClick={() => router.push("/chat")}
                   >
-                    <ChatBubbleIcon className="mr-2 h-4 w-4" />
+                    <ChatBubbleIcon className="mr-2 size-4" />
                     Tin nhắn
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
@@ -150,7 +153,7 @@ export default function UserStatus({categoryData}: UserStatusProps) {
                 className="cursor-pointer"
                 onClick={() => setIsModalConfirmOpen(true)}
               >
-                <ExitIcon className="mr-2 h-4 w-4" />
+                <ExitIcon className="mr-2 size-4" />
                 Đăng xuất
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -165,7 +168,7 @@ export default function UserStatus({categoryData}: UserStatusProps) {
               variant="outline"
               className="bg-transparent outline-none border-none shadow-none"
             >
-              <HamburgerMenuIcon className="w-7 h-7" />
+              <HamburgerMenuIcon className="size-7" />
             </Button>
           </SheetTrigger>
           <SheetContent className={styles.navTablet}>
@@ -176,7 +179,7 @@ export default function UserStatus({categoryData}: UserStatusProps) {
                   alt="Medpro Logo"
                   width={500}
                   height={500}
-                  className="w-full h-full object-contain"
+                  className="size-full object-contain"
                 />
               </Link>
             </SheetHeader>
@@ -202,7 +205,7 @@ export default function UserStatus({categoryData}: UserStatusProps) {
                             width={50}
                             height={50}
                             alt={cate.name}
-                            className="w-full h-full object-contain"
+                            className="size-full object-contain"
                           />
                         </div>
                         <Link

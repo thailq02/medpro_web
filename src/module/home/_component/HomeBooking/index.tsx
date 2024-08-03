@@ -24,7 +24,7 @@ export default function HomeBooking() {
               alt="Ảnh quảng bá Medpro"
               width={1000}
               height={1000}
-              className="w-full h-full object-cover"
+              className="size-full object-cover"
             />
           </div>
         </div>

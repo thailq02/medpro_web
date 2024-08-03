@@ -69,7 +69,7 @@ export function ButtonSubmit({
     >
       {loading && (
         <SpinnerIcon
-          className={twMerge("mr-2 h-4 w-4 animate-spin", classNameLoading)}
+          className={twMerge("mr-2 size-4 animate-spin", classNameLoading)}
         />
       )}
       {title}

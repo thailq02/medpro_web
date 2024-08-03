@@ -70,14 +70,12 @@ export default function LoginForm(props: LoginFormProps) {
       password: "",
     },
   });
-  console.log("LoginForm -> props", props);
   if (
     props.access_token &&
     props.refresh_token &&
     props.expired_at &&
     props.profile
   ) {
-    console.log("lot vao day gg login");
     const {access_token, refresh_token, expired_at, profile} = props;
     setUser(profile);
     setLocalStorage({access_token, refresh_token, expired_at});

@@ -1,11 +1,13 @@
 "use client";
+import {VerifyStatus} from "@/apiRequest/common";
+import {AppContext} from "@/app/(home)/AppProvider";
 import {CameraIcon} from "@/components/Icon";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {toBase64} from "@/lib/utils";
 import Image from "next/image";
-import {useRef, useState} from "react";
+import {useContext, useRef, useState} from "react";
 import styles from "./AvatarUpload.module.scss";
 
 type AvatarUploadProps = {
@@ -15,6 +17,7 @@ type AvatarUploadProps = {
 const IMAGE_FORMATS_ACCEPTED = ["image/jpg", "image/jpeg", "image/png"];
 
 export function AvatarUpload({value, onChange}: AvatarUploadProps) {
+  const {user} = useContext(AppContext);
   const isFile = value instanceof File ? "" : (value as string);
   const [url, setUrl] = useState<string>(isFile);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -28,7 +31,7 @@ export function AvatarUpload({value, onChange}: AvatarUploadProps) {
   };
   return (
     <div className={styles.container}>
-      <Avatar className="w-full h-full">
+      <Avatar className="size-full">
         <AvatarImage src={url ? url : isFile} className="object-cover" />
         <AvatarFallback className="bg-secondary">
           <Image
@@ -39,24 +42,28 @@ export function AvatarUpload({value, onChange}: AvatarUploadProps) {
           />
         </AvatarFallback>
       </Avatar>
-      <Button
-        variant="ghost"
-        size="icon"
-        className={styles.btn}
-        onClick={(e) => {
-          e.preventDefault();
-          inputRef.current?.click();
-        }}
-      >
-        <CameraIcon className="w-5 h-5" />
-      </Button>
-      <Input
-        ref={inputRef}
-        type="file"
-        className="hidden"
-        onChange={handleChange}
-        accept={IMAGE_FORMATS_ACCEPTED.join(",")}
-      />
+      {user?.verify === VerifyStatus.VERIFIED && (
+        <>
+          <Button
+            variant="ghost"
+            size="icon"
+            className={styles.btn}
+            onClick={(e) => {
+              e.preventDefault();
+              inputRef.current?.click();
+            }}
+          >
+            <CameraIcon className="size-5" />
+          </Button>
+          <Input
+            ref={inputRef}
+            type="file"
+            className="hidden"
+            onChange={handleChange}
+            accept={IMAGE_FORMATS_ACCEPTED.join(",")}
+          />
+        </>
+      )}
     </div>
   );
 }

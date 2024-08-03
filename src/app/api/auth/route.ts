@@ -1,9 +1,10 @@
 import {IStatus, REFRESH_TOKEN} from "@/apiRequest/common";
 import {cookies} from "next/headers";
+import {NextResponse} from "next/server";
 
 export async function POST(request: Request) {
   const body = await request.json();
-  console.log("request ~ body", body);
+  // console.log("request ~ body", body);
   const access_token = body?.access_token as string;
   const refresh_token = body?.refresh_token as string;
   const expiresAt = body?.expiresAt as number;
@@ -20,10 +21,12 @@ export async function POST(request: Request) {
     sameSite: "lax",
   });
   const expiredDate = new Date(expiresAt * 1000).toUTCString();
-  return Response.json(body, {
+  const response = NextResponse.json(body, {
     status: IStatus.SUCCESS,
-    headers: {
-      "Set-Cookie": `accessToken=${access_token}; Path=/; HttpOnly; Expires=${expiredDate}; SameSite=Lax; Secure`,
-    },
   });
+  response.headers.set(
+    "Set-Cookie",
+    `accessToken=${access_token}; Path=/; HttpOnly; Expires=${expiredDate}; SameSite=Lax; Secure`
+  );
+  return response;
 }

@@ -242,7 +242,7 @@ export default function HealthFacilities({slug}: {slug?: string}) {
                     {hospitalInfomation?.name || "Chưa cập nhật!!"}
                   </h3>
                   <div className={styles.rightSession}>
-                    <ClockIcon className="w-5 h-5 text-textLightOrange inline-block" />
+                    <ClockIcon className="size-5 text-textLightOrange inline-block" />
                     <span>{hospitalInfomation?.session}</span>
                   </div>
                 </div>

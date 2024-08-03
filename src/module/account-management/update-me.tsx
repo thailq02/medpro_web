@@ -47,7 +47,7 @@ import styles from "./Account.module.scss";
 export default function UpdateMeForm() {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const {user} = useContext(AppContext);
+  const {user, setUser} = useContext(AppContext);
   const router = useRouter();
   const {toast} = useToast();
 
@@ -90,6 +90,7 @@ export default function UpdateMeForm() {
       const result = await apiAuthRequest.updateMe(
         values as AccountBodyType & {avatar: string; date_of_birth: string}
       );
+      setUser(result.payload.data);
       toast({
         title: "Thành công",
         description: result.payload.message,
@@ -103,13 +104,13 @@ export default function UpdateMeForm() {
     }
   }
   return (
-    <Card className="h-full">
-      <CardHeader>
+    <Card className="h-full overflow-y-scroll scrollbar-global">
+      <CardHeader className="account-860:sticky account-860:top-0 account-860:z-10 account-860:bg-white">
         <CardTitle className="border-b border-gray-300 pb-4">
           Thông tin cá nhân
         </CardTitle>
       </CardHeader>
-      <CardContent className={`space-y-2 ${styles.cardContent}`}>
+      <CardContent className={`space-y-2 ${styles.cardContent} no-scrollbar`}>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -195,7 +196,7 @@ export default function UpdateMeForm() {
                               ) : (
                                 <span>Chọn ngày sinh</span>
                               )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                              <CalendarIcon className="ml-auto size-4 opacity-50" />
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
@@ -293,7 +294,7 @@ export default function UpdateMeForm() {
               loading={loading}
               disabled={loading || disabled}
               className={styles.btn_submit}
-              classNameLoading="mr-4 h-5 w-5"
+              classNameLoading="mr-4 size-5"
             />
           </form>
         </Form>

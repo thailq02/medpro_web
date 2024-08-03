@@ -25,7 +25,7 @@ export default function HomeSearch({placeholder}: {placeholder: string}) {
 
   return (
     <div className={styles.searchInput}>
-      <MagnifyingGlassIcon className="w-6 h-6 ml-3" />
+      <MagnifyingGlassIcon className="size-6 ml-3" />
       <div className="w-full relative">
         <Input
           type="search"

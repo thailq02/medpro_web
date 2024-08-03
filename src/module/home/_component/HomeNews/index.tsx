@@ -48,7 +48,7 @@ export default function HomeNews() {
                   alt="News"
                   width={500}
                   height={500}
-                  className="w-full h-full object-cover"
+                  className="size-full object-cover"
                 />
               </div>
               <div className="cardLeftInfo">
@@ -73,7 +73,7 @@ export default function HomeNews() {
                     alt="News"
                     width={500}
                     height={500}
-                    className="w-full h-full object-cover"
+                    className="size-full object-cover"
                   />
                 </div>
                 <div className="cardRightInfo">
@@ -98,7 +98,7 @@ export default function HomeNews() {
                               alt="News"
                               width={500}
                               height={500}
-                              className="w-full h-full object-cover"
+                              className="size-full object-cover"
                             />
                           </div>
                           <div className="cardRightInfo">
@@ -118,7 +118,7 @@ export default function HomeNews() {
         </div>
         <div className={styles.btn}>
           <Button>
-            Xem thêm <DoubleArrowRightIcon className="w-5 h-5 ml-1" />
+            Xem thêm <DoubleArrowRightIcon className="size-5 ml-1" />
           </Button>
         </div>
       </div>

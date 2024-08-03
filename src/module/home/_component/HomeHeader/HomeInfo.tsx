@@ -38,7 +38,7 @@ export default function HomeInfo() {
                 alt="home_info"
                 width={500}
                 height={500}
-                className="w-full h-full object-cover rounded-2xl"
+                className="size-full object-cover rounded-2xl"
               />
             </div>
             <h4 className={styles.homeTitle}>Vì thời gian của bạn là vô giá</h4>
@@ -64,7 +64,7 @@ export default function HomeInfo() {
                           alt="home_info"
                           width={500}
                           height={500}
-                          className="w-full h-full object-cover rounded-2xl"
+                          className="size-full object-cover rounded-2xl"
                         />
                       </div>
                       <h4 className={styles.homeTitle}>

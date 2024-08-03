@@ -87,3 +87,31 @@
     overflow: hidden;
   }
 }
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-global {
+    scroll-behavior: smooth;
+    scrollbar-color: unset !important;
+    &::-webkit-scrollbar {
+      width: 17px !important;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent !important;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #d6dee1 !important;
+      border-radius: 20px !important;
+      border: 7px solid transparent !important;
+      background-clip: content-box !important;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: #a8bbbf !important;
+    }
+  }
+}

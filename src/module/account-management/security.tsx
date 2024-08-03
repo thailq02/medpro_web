@@ -89,16 +89,15 @@ export default function SecurityForm() {
       </CardHeader>
       <CardContent className="space-y-8">
         <div className="flex items-center justify-between">
-          <Label>Password</Label>
+          <Label>Mật khẩu</Label>
           <Label>••••••••••</Label>
           <Popover>
             <PopoverTrigger asChild>
               <Button variant="outline" className="text-xs">
-                Update password
+                Cập nhật
               </Button>
             </PopoverTrigger>
             <PopoverContent className="z-[999999999999]" align="end">
-              <Label className="font-extrabold">Update password</Label>
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
@@ -109,7 +108,7 @@ export default function SecurityForm() {
                     name="old_password"
                     render={({field}) => (
                       <FormItem className="space-y-1">
-                        <FormLabel>Current password</FormLabel>
+                        <FormLabel>Mật khẩu hiện tại</FormLabel>
                         <FormControl>
                           <PasswordInput {...field} />
                         </FormControl>
@@ -121,8 +120,8 @@ export default function SecurityForm() {
                     control={form.control}
                     name="new_password"
                     render={({field}) => (
-                      <FormItem className="space-y-1  !mt-3">
-                        <FormLabel>New password</FormLabel>
+                      <FormItem className="space-y-1 !mt-3">
+                        <FormLabel>Mật khẩu mới</FormLabel>
                         <FormControl>
                           <PasswordInput {...field} />
                         </FormControl>
@@ -134,8 +133,8 @@ export default function SecurityForm() {
                     control={form.control}
                     name="confirm_new_password"
                     render={({field}) => (
-                      <FormItem className="space-y-1  !mt-3">
-                        <FormLabel>Confirm password</FormLabel>
+                      <FormItem className="space-y-1 !mt-3">
+                        <FormLabel>Nhập lại mật khẩu mới</FormLabel>
                         <FormControl>
                           <PasswordInput {...field} />
                         </FormControl>
@@ -147,7 +146,7 @@ export default function SecurityForm() {
                     disabled={loading}
                     loading={loading}
                     className="w-full"
-                    title="Cập nhật mật khẩu"
+                    title="Đổi mật khẩu"
                   />
                 </form>
               </Form>
@@ -155,25 +154,25 @@ export default function SecurityForm() {
           </Popover>
         </div>
         <div className="flex items-center justify-between">
-          <Label>Status</Label>
+          <Label>Trạng thái</Label>
           <div className="flex items-center justify-center">
             {user?.verify === VerifyStatus.VERIFIED ? (
               <>
-                <div className="w-4 h-4 rounded-full bg-green-500"></div>
+                <div className="size-4 rounded-full bg-green-500"></div>
                 <span className="inline-block text-xs ml-1 font-bold">
                   Đã xác thực
                 </span>
               </>
             ) : user?.verify === VerifyStatus.UNVERIFIED ? (
               <>
-                <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
+                <div className="size-4 rounded-full bg-yellow-500"></div>
                 <span className="inline-block text-xs ml-1 font-bold">
                   Chưa xác thực
                 </span>
               </>
             ) : (
               <>
-                <div className="w-4 h-4 rounded-full bg-red-500"></div>
+                <div className="size-4 rounded-full bg-red-500"></div>
                 <span className="inline-block text-xs ml-1 font-bold">
                   Tài khoản đã bị khoá
                 </span>
@@ -188,7 +187,7 @@ export default function SecurityForm() {
             className="text-xs"
             onClick={handleResendVerifyEmail}
             loading={loading}
-            title=" Verify email"
+            title="Xác thực tài khoản"
           />
         </div>
       </CardContent>

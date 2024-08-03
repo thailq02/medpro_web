@@ -111,7 +111,7 @@ export default function FacilityBooking() {
               alt="Banner"
               width={1000}
               height={1000}
-              className="w-full h-full object-center"
+              className="size-full object-center"
             />
           </div>
         </div>
@@ -119,13 +119,13 @@ export default function FacilityBooking() {
       <div className={styles.body}>
         <div className={styles.container}>
           <div className={styles.search}>
-            <MagnifyingGlassIcon className="w-5 h-5" />
+            <MagnifyingGlassIcon className="size-5" />
             <input
               type="search"
               placeholder="Nhập tên cơ sở y tế"
               onChange={(e) => setSearch(e.target.value)}
             />
-            <LocationIcon className="w-4 h-4" />
+            <LocationIcon className="size-4" />
             <Select>
               <SelectTrigger className="w-[180px] border-none outline-none  focus:ring-transparent">
                 <SelectValue placeholder="Tất cả địa điểm" />
@@ -158,7 +158,7 @@ export default function FacilityBooking() {
               hospitalData?.map((v) => (
                 <div
                   key={v._id}
-                  className={`bg-white rounded-2xl w-full h-full border-2 hover:border-textSecondary transition-all`}
+                  className={`bg-white rounded-2xl size-full border-2 hover:border-textSecondary transition-all`}
                   role="button"
                   onClick={() =>
                     router.push(`/${v.slug}/${HINH_THUC_DAT_KHAM}`)
@@ -229,7 +229,7 @@ function SkeletonLoading() {
       key={index}
     >
       <div>
-        <Skeleton className="w-[80px] h-[80px]" />
+        <Skeleton className="size-[80px]" />
       </div>
       <div className="w-full">
         <Skeleton className="w-full h-6" />

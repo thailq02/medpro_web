@@ -13,7 +13,7 @@ export default function HomeSupport() {
                 alt="Hotline"
                 width={100}
                 height={100}
-                className="object-cover w-full h-full"
+                className="object-cover size-full"
               />
             </div>
             <div className="text-center text-white">
@@ -32,7 +32,7 @@ export default function HomeSupport() {
                     alt="Hotline"
                     width={100}
                     height={100}
-                    className="w-full h-full object-cover"
+                    className="size-full object-cover"
                   />
                 </div>
                 <span className="inline-block font-medium">Zalo</span>
@@ -44,7 +44,7 @@ export default function HomeSupport() {
                     alt="Hotline"
                     width={100}
                     height={100}
-                    className="w-full h-full object-cover"
+                    className="size-full object-cover"
                   />
                 </div>
                 <span className="inline-block font-medium">Facebook</span>

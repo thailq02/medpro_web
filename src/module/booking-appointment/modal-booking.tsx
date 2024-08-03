@@ -14,7 +14,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import {Button} from "@/components/ui/button";
-import {Calendar} from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
@@ -46,6 +45,8 @@ import {vi} from "date-fns/locale";
 import Image from "next/image";
 import {useRouter, useSearchParams} from "next/navigation";
 import {useContext, useState} from "react";
+import {DayPicker} from "react-day-picker";
+import "react-day-picker/dist/style.css";
 import {useForm} from "react-hook-form";
 
 interface IModalBookingAppointmentProps {
@@ -128,7 +129,7 @@ export default function ModalBookingAppointment({
   }
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-      <AlertDialogContent className="z-[9999] !max-w-[800px]">
+      <AlertDialogContent className="z-[9999] !max-w-[90vw] !max-h-[80vh] p-3 overflow-x-hidden overflow-y-scroll scrollbar-global booking-576:p-6 booking-840:!max-w-[65vw] booking-840:!max-h-[70vh]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <AlertDialogHeader>
@@ -136,17 +137,17 @@ export default function ModalBookingAppointment({
                 Thông tin về đặt lịch khám bệnh
               </AlertDialogTitle>
             </AlertDialogHeader>
-            <div className="flex items-start gap-5">
-              <div className="w-[90px] h-[90px]">
+            <div className="flex flex-col items-center gap-5 !mt-4 booking-576:flex-row booking-576:items-start booking-576:mt-8">
+              <div className="size-[90px]">
                 <Image
                   src={doctor?.avatar || "/img/avatar/avatar.jpg"}
                   alt="doctor"
                   width={90}
                   height={90}
-                  className="rounded-full w-full h-full"
+                  className="rounded-full size-full"
                 />
               </div>
-              <div className="flex flex-col gap-1 font-semibold">
+              <div className="flex flex-col items-center gap-1 font-semibold booking-576:items-start">
                 <span>
                   {renderPosition(doctor?.position as number)}{" "}
                   {doctor?.name || "Bác sĩ thuộc bệnh viện"}
@@ -159,14 +160,14 @@ export default function ModalBookingAppointment({
                 </span>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-5">
-              <div>
+            <div className="grid grid-cols-1 gap-5 booking-576:grid-cols-2">
+              <div className="flex flex-col gap-3">
                 <FormField
                   control={form.control}
                   name="email"
                   render={({field}) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
+                    <FormItem className="space-y-0">
+                      <FormLabel className="font-semibold">Email</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Email"
@@ -183,8 +184,8 @@ export default function ModalBookingAppointment({
                   control={form.control}
                   name="fullname"
                   render={({field}) => (
-                    <FormItem>
-                      <FormLabel>Họ và tên</FormLabel>
+                    <FormItem className="space-y-0">
+                      <FormLabel className="font-semibold">Họ và tên</FormLabel>
                       <FormControl>
                         <Input placeholder="Nhập họ và tên" {...field} />
                       </FormControl>
@@ -196,8 +197,10 @@ export default function ModalBookingAppointment({
                   control={form.control}
                   name="phone_number"
                   render={({field}) => (
-                    <FormItem>
-                      <FormLabel>Số điện thoại</FormLabel>
+                    <FormItem className="space-y-0">
+                      <FormLabel className="font-semibold">
+                        Số điện thoại
+                      </FormLabel>
                       <FormControl>
                         <Input placeholder="Nhập số điện thoại" {...field} />
                       </FormControl>
@@ -206,13 +209,13 @@ export default function ModalBookingAppointment({
                   )}
                 />
               </div>
-              <div>
+              <div className="flex flex-col gap-3">
                 <FormField
                   control={form.control}
                   name="date_of_birth"
                   render={({field}) => (
-                    <FormItem>
-                      <FormLabel>Ngày sinh</FormLabel>
+                    <FormItem className="space-y-0">
+                      <FormLabel className="font-semibold">Ngày sinh</FormLabel>
                       <Popover>
                         <PopoverTrigger asChild>
                           <FormControl>
@@ -228,7 +231,7 @@ export default function ModalBookingAppointment({
                               ) : (
                                 <span>Chọn ngày sinh</span>
                               )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                              <CalendarIcon className="ml-auto size-4 opacity-50" />
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
@@ -236,8 +239,11 @@ export default function ModalBookingAppointment({
                           className="w-full p-0 z-[99999999999999]"
                           align="start"
                         >
-                          <Calendar
+                          <DayPicker
                             mode="single"
+                            captionLayout="dropdown"
+                            fromMonth={new Date(1900, 12)}
+                            toMonth={new Date()}
                             locale={vi}
                             selected={field.value}
                             onSelect={field.onChange}
@@ -255,8 +261,8 @@ export default function ModalBookingAppointment({
                   control={form.control}
                   name="gender"
                   render={({field}) => (
-                    <FormItem>
-                      <FormLabel>Giới tính</FormLabel>
+                    <FormItem className="space-y-0">
+                      <FormLabel className="font-semibold">Giới tính</FormLabel>
                       <FormControl>
                         <Select
                           value={field.value.toString()}
@@ -287,8 +293,8 @@ export default function ModalBookingAppointment({
                   control={form.control}
                   name="address"
                   render={({field}) => (
-                    <FormItem>
-                      <FormLabel>Địa chỉ</FormLabel>
+                    <FormItem className="space-y-0">
+                      <FormLabel className="font-semibold">Địa chỉ</FormLabel>
                       <FormControl>
                         <Input placeholder="Nhập địa chỉ" {...field} />
                       </FormControl>
@@ -302,8 +308,10 @@ export default function ModalBookingAppointment({
               control={form.control}
               name="reason"
               render={({field}) => (
-                <FormItem className="!mt-0">
-                  <FormLabel>Lý do khám bệnh</FormLabel>
+                <FormItem className="!mt-2 space-y-0">
+                  <FormLabel className="font-semibold">
+                    Lý do khám bệnh
+                  </FormLabel>
                   <FormControl>
                     <Textarea placeholder="Nhập lý do khám bệnh" {...field} />
                   </FormControl>

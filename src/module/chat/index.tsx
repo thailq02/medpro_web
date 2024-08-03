@@ -10,10 +10,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {useMediaQuery} from "@/hooks/useMediaQuery";
 import socket from "@/lib/socket";
 import {
   IOnlineUsers,
   checkUserOnline,
+  getLastName,
   normalizeString,
 } from "@/module/chat/helper";
 import {MagnifyingGlassIcon} from "@radix-ui/react-icons";
@@ -44,9 +46,11 @@ export default function ChatPage() {
   const [allUser, setAllUser] = useState<IConversationWithLastMessage[]>([]);
   const [searchValue, setSearchValue] = useState<string>("");
 
-  // useEffect(() => {
-  //   socket.connect();
-  // }, []);
+  const isTablet = useMediaQuery(940);
+
+  useEffect(() => {
+    socket.connect();
+  }, []);
 
   useEffect(() => {
     if (!user || !user._id) return;
@@ -74,41 +78,99 @@ export default function ChatPage() {
           <div className={styles.sideBar}>
             <h2 className={styles.title}>Đoạn chat</h2>
             <div className={styles.search}>
-              <MagnifyingGlassIcon className="w-6 h-6 flex-shrink-0" />
+              <MagnifyingGlassIcon className="size-6 flex-shrink-0" />
               <input
                 type="search"
                 placeholder="Search Messenger"
                 onChange={(e) => setSearchValue(e.target.value)}
               />
             </div>
-            <div className={styles.chatContainer}>
-              {filteredUsers.map((user) => (
-                <div
-                  className={clsx(
-                    styles.chatBox,
-                    (user.username === userSelected?.username ||
-                      user.username === username) &&
-                      styles.active
-                  )}
-                  key={user?._id}
-                  role="button"
-                  onClick={() => {
-                    setUserSelected(user);
-                    if (userSelected?.username !== user.username) {
-                      setMessages([]);
-                    }
-                    if (searchParams) {
-                      router.push("/chat");
-                    }
-                  }}
-                >
-                  <TooltipProvider delayDuration={100}>
-                    <div className={styles.avatar}>
+            {!isTablet ? (
+              <div className={styles.chatContainer}>
+                {filteredUsers.map((user) => (
+                  <div
+                    className={clsx(
+                      styles.chatBox,
+                      (user.username === userSelected?.username ||
+                        user.username === username) &&
+                        styles.active
+                    )}
+                    key={user?._id}
+                    role="button"
+                    onClick={() => {
+                      setUserSelected(user);
+                      if (userSelected?.username !== user.username) {
+                        setMessages([]);
+                      }
+                      if (searchParams) {
+                        router.push("/chat");
+                      }
+                    }}
+                  >
+                    <TooltipProvider delayDuration={100}>
+                      <div className={styles.avatar}>
+                        <Image
+                          src={user?.avatar || "/img/avatar/avatar.jpg"}
+                          alt="avatar"
+                          width={150}
+                          height={150}
+                        />
+                        {checkUserOnline({
+                          onlineUsers,
+                          user_id: user?._id as string,
+                        }) && (
+                          <div className={styles.circle}>
+                            <div className={styles.online}></div>
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <h3 className={styles.name}>{user?.name}</h3>
+                          </TooltipTrigger>
+                          <TooltipContent>{user?.name}</TooltipContent>
+                        </Tooltip>
+                        <p className={styles.msg}>
+                          {user?.lastMessage?.sender_id !== user._id
+                            ? user?.lastMessage?.imgUrl &&
+                              user?.lastMessage?.content === ""
+                              ? "Bạn vừa gửi một hình ảnh"
+                              : `Bạn: ${user?.lastMessage?.content}`
+                            : user?.lastMessage?.imgUrl &&
+                              user?.lastMessage?.content === ""
+                            ? `${user?.name} vừa gửi một hình ảnh`
+                            : user?.lastMessage?.content}
+                        </p>
+                      </div>
+                    </TooltipProvider>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex gap-5 overflow-x-scroll w-full mt-5 h-[100px] sm:h-[120px] no-scrollbar">
+                {filteredUsers.map((user) => (
+                  <div
+                    className="size-16 sm:size-[74px] md:size-20 flex flex-col items-center flex-shrink-0"
+                    key={user?._id}
+                    role="button"
+                    onClick={() => {
+                      setUserSelected(user);
+                      if (userSelected?.username !== user.username) {
+                        setMessages([]);
+                      }
+                      if (searchParams) {
+                        router.push("/chat");
+                      }
+                    }}
+                  >
+                    <div className="size-full rounded-full border border-gray-300 relative flex-shrink-0">
                       <Image
                         src={user?.avatar || "/img/avatar/avatar.jpg"}
                         alt="avatar"
                         width={150}
                         height={150}
+                        className="size-full object-cover rounded-full"
                       />
                       {checkUserOnline({
                         onlineUsers,
@@ -119,29 +181,11 @@ export default function ChatPage() {
                         </div>
                       )}
                     </div>
-                    <div>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <h3 className={styles.name}>{user?.name}</h3>
-                        </TooltipTrigger>
-                        <TooltipContent>{user?.name}</TooltipContent>
-                      </Tooltip>
-                      <p className={styles.msg}>
-                        {user?.lastMessage?.sender_id !== user._id
-                          ? user?.lastMessage?.imgUrl &&
-                            user?.lastMessage?.content === ""
-                            ? "Bạn vừa gửi một hình ảnh"
-                            : `Bạn: ${user?.lastMessage?.content}`
-                          : user?.lastMessage?.imgUrl &&
-                            user?.lastMessage?.content === ""
-                          ? `${user?.name} vừa gửi một hình ảnh`
-                          : user?.lastMessage?.content}
-                      </p>
-                    </div>
-                  </TooltipProvider>
-                </div>
-              ))}
-            </div>
+                    <p className="text-black">{getLastName(user.name)}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           {(userSelected || username) && (
             <ConversationPage

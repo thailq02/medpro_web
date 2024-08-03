@@ -30,22 +30,22 @@ export default function AccountManagement({
       <DialogContent className={styles.dialogContent}>
         <Tabs defaultValue="account" className={styles.tabContainer}>
           <TabsList className={styles.sidebar}>
-            <h2 className={styles.sidebarTitle}>Account</h2>
-            <p className={styles.sidebarDesc}>Manage your account info.</p>
+            <h2 className={styles.sidebarTitle}>Tài khoản</h2>
+            <p className={styles.sidebarDesc}>Quản lý thông tin tài khoản</p>
             <TabsTrigger
               value="account"
               className={`${styles.sidebarItem} mt-5`}
             >
-              <CircleUserIcon className="w-5 h-5" />
-              Profile
+              <CircleUserIcon className="size-5" />
+              Hồ sơ
             </TabsTrigger>
             <TabsTrigger value="security" className={styles.sidebarItem}>
-              <SecurityIcon className="w-5 h-5" />
-              Security
+              <SecurityIcon className="size-5" />
+              Bảo mật
             </TabsTrigger>
             <TabsTrigger value="appointment" className={styles.sidebarItem}>
-              <CalendarIcon className="w-5 h-5" />
-              Appointments
+              <CalendarIcon className="size-5" />
+              Lịch khám
             </TabsTrigger>
           </TabsList>
           <TabsContent value="account" className={styles.tabContent}>

@@ -58,17 +58,6 @@ export default function HomeAchievement() {
             />
           ))}
         </div>
-
-        <div className={styles.video}>
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/zfmhCJgWx8Y?autoplay=1&state=1&undefined"
-            allowFullScreen
-            width={660}
-            height={370}
-            frameBorder={0}
-            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          ></iframe>
-        </div>
       </div>
     </section>
   );

@@ -57,7 +57,7 @@ export default async function Login({
               width={250}
               height={60}
               alt="logo"
-              className="w-full h-full object-contain"
+              className="size-full object-contain"
             />
           </Link>
           <div className="text-center">
@@ -73,10 +73,10 @@ export default async function Login({
             refresh_token={refreshToken}
             expired_at={expiredAt}
           />
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 pb-2">
+          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 pb-2 text-sm sm:text-base">
             <Link className="font-bold flex items-center" href={"/register"}>
-              <span>Create your account</span>
-              <ArrowRightIcon className="w-4 h-4 ml-2" />
+              <span>Tạo tài khoản</span>
+              <ArrowRightIcon className="size-4 ml-2" />
             </Link>
           </div>
         </div>

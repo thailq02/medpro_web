@@ -30,10 +30,6 @@ import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {useCallback, useEffect, useState} from "react";
 import styles from "./BookingAppointment.module.scss";
 
-/**
- Mỗi 1 bệnh viện chỉ có 1 dịch vụ duy nhất là không thuộc chuyên khoa nào và có type === "service" => Nếu 1 bệnh viện mà có 2 dịch vụ không thuộc chuyên khoa nào tức specialty === null và type === "service" thì sẽ lỗi
- */
-
 export type DoctorFilter = {
   name?: string;
   gender?: string;
@@ -256,23 +252,23 @@ export default function ChooseDoctor({
               <li key={v._id} className={styles.cardDoctor}>
                 <div role="button" onClick={() => handleDoctorClick(v)}>
                   <div className={clsx(styles.infoLine, styles.highlight)}>
-                    <DoctorIcon className="w-4 h-4" />
+                    <DoctorIcon className="size-4" />
                     {renderPosition(v?.position as number) + " " + v.name}
                   </div>
                   <div className={styles.infoLine}>
-                    <GenderIcon className="w-4 h-4" />
+                    <GenderIcon className="size-4" />
                     Giới tính: {v.gender === 0 ? "Nam" : "Nữ"}
                   </div>
                   <div className={styles.infoLine}>
-                    <StethoscopeIcon className="w-4 h-4" />
+                    <StethoscopeIcon className="size-4" />
                     Chuyên khoa: {v.specialty?.name}
                   </div>
                   <div className={styles.infoLine}>
-                    <CalendarIcon className="w-4 h-4" />
+                    <CalendarIcon className="size-4" />
                     Lịch khám: {v.session}
                   </div>
                   <div className={styles.infoLine}>
-                    <DollarIcon className="w-4 h-4" />
+                    <DollarIcon className="size-4" />
                     Giá: {v.price?.toLocaleString("vi-VN")}đ
                   </div>
                 </div>

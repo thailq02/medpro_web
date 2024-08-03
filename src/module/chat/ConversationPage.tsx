@@ -79,6 +79,7 @@ export default function ConversationPage({
     }
     return () => {
       if (textareaRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         textareaRef.current.removeEventListener("input", adjustTextareaHeight);
       }
     };
@@ -106,6 +107,7 @@ export default function ConversationPage({
     }
     return () => {
       if (textareaRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         textareaRef.current.removeEventListener("keydown", handleKeyDown);
       }
     };
@@ -290,7 +292,7 @@ export default function ConversationPage({
           <>
             {isFetchingNextPage && (
               <div className="flex items-center justify-center">
-                <SpinnerIcon className="w-5 h-5 animate-spin" />
+                <SpinnerIcon className="size-5 animate-spin" />
               </div>
             )}
             <div className="flex flex-col gap-2 py-2 mx-2">
@@ -309,7 +311,7 @@ export default function ConversationPage({
                       <Image
                         src={conversation?.imgUrl}
                         alt="Avatar"
-                        className="w-full h-full object-scale-down"
+                        className="size-full object-scale-down"
                         width={1000}
                         height={1000}
                       />
@@ -326,7 +328,7 @@ export default function ConversationPage({
         )}
       </div>
       <div className={styles.footer}>
-        <div className="flex items-center justify-between gap-5">
+        <div className="flex items-center justify-between">
           <div
             className={clsx(
               "flex items-center",
@@ -336,9 +338,9 @@ export default function ConversationPage({
             <div className="relative">
               <button
                 onClick={handleUploadImageOpen}
-                className="flex justify-center items-center w-11 h-11 rounded-full"
+                className="flex justify-center items-center size-11 rounded-full"
               >
-                <CirclePlusIcon className="w-6 h-6" />
+                <CirclePlusIcon className="size-6" />
               </button>
 
               {openImageUpload && (
@@ -352,7 +354,7 @@ export default function ConversationPage({
                       className="flex items-center p-2 px-3 gap-3 hover:bg-slate-200 cursor-pointer"
                     >
                       <div className="text-primary">
-                        <ImageIcon className="w-5 h-5" />
+                        <ImageIcon className="size-5" />
                       </div>
                       <p>Image</p>
                     </label>
@@ -375,7 +377,7 @@ export default function ConversationPage({
             <div className={styles.inputMsg}>
               <div className="flex flex-1 flex-col w-full max-h-[250px]">
                 {preview && (
-                  <Avatar className="w-24 h-24 border border-black rounded-sm">
+                  <Avatar className="size-24 border border-black rounded-sm">
                     <AvatarImage src={preview} />
                     <AvatarFallback>TH</AvatarFallback>
                   </Avatar>
@@ -397,7 +399,7 @@ export default function ConversationPage({
                 )}
               >
                 <FaceIcon
-                  className="w-6 h-6 cursor-pointer"
+                  className="size-6 cursor-pointer"
                   onClick={() => setEmojiPickerOpen((prev) => !prev)}
                 />
                 <EmojiPicker
@@ -422,7 +424,7 @@ export default function ConversationPage({
                 (preview || isTextareaScrolled) && "self-end"
               )}
             >
-              <PaperPlaneIcon className="w-5 h-5 text-textSecondary" />
+              <PaperPlaneIcon className="size-5 text-textSecondary" />
             </button>
           </form>
         </div>

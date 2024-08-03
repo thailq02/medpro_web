@@ -26,12 +26,12 @@ export default function OAuthLogin() {
     <div className="flex items-center justify-center gap-3 mt-4">
       <Link className="p-0" href={oauthUrl}>
         <div className={styles.socialIcon}>
-          <GoogleIcon className="w-5 h-5" />
+          <GoogleIcon className="size-5" />
         </div>
       </Link>
       <Link className="p-0" href={"#"}>
         <div className={styles.socialIcon}>
-          <FacebookIcon className="w-5 h-5" />
+          <FacebookIcon className="size-5" />
         </div>
       </Link>
     </div>

@@ -105,13 +105,10 @@ export default function Footer() {
                 <span>Địa chỉ:</span> Hoàng Mai, Hà Nội
               </li>
               <li>
-                <span>Website:</span> https://medpro.vn
+                <span>Website:</span> https://lequangthai-medpro.io.vn
               </li>
               <li>
                 <span>Email:</span> thai.lq011002@gmail.com
-              </li>
-              <li>
-                <span>Điện thoại:</span> (028) 710 78098
               </li>
             </ul>
           </div>

@@ -42,7 +42,7 @@ export default function PaginationSection({
       <PaginationContent className="cursor-pointer gap-2">
         <PaginationItem className={styles.paginationItem}>
           <Button onClick={() => handlePrevPage()} variant={"outline"}>
-            <ChevronLeftIcon className="w-4 h-4" />
+            <ChevronLeftIcon className="size-4" />
           </Button>
         </PaginationItem>
         {pages.map((page, idx) => (
@@ -60,7 +60,7 @@ export default function PaginationSection({
         ))}
         <PaginationItem className={styles.paginationItem}>
           <Button onClick={() => handleNextPage()} variant={"outline"}>
-            <ChevronRightIcon className="w-4 h-4" />
+            <ChevronRightIcon className="size-4" />
           </Button>
         </PaginationItem>
       </PaginationContent>

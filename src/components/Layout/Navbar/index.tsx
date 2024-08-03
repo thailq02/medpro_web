@@ -80,7 +80,7 @@ export default async function Navbar() {
             alt="Medpro Logo"
             width={500}
             height={500}
-            className="w-full h-full object-contain"
+            className="size-full object-contain"
           />
         </Link>
         <Menubar className={styles.nav}>

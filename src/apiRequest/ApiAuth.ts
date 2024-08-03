@@ -69,6 +69,14 @@ export interface IGetMeResBody {
   data: User;
 }
 
+interface IGetNewToken {
+  message: string;
+  data: {
+    new_access_token: string;
+    new_refresh_token: string;
+  };
+}
+
 const path = {
   login: "/api/auth/login",
   register: "/api/auth/register",
@@ -82,6 +90,7 @@ const path = {
   getMe: "/api/users/me",
   getUserByUsername: "/api/users",
   updateMe: "/api/users/me",
+  refreshToken: "/api/auth/refresh-token",
 };
 
 const apiAuthRequest = {
@@ -102,7 +111,7 @@ const apiAuthRequest = {
   getMe: (access_token: string) =>
     http.get<IGetMeResBody>(path.getMe, {
       headers: {Authorization: `Bearer ${access_token}`},
-      cache: "no-cache",
+      cache: "no-store",
     }),
 
   getUserByUsername: (username: string) =>
@@ -118,11 +127,10 @@ const apiAuthRequest = {
     http.post<{message: string}>(path.resendVerifyEmail, {}),
 
   verifyEmail: (email_verify_token: string) =>
-    http.post<{message: string}>(path.verifyEmail, {
+    http.post<IGetNewToken>(path.verifyEmail, {
       email_verify_token,
     }),
 
-  // signal phòng trường hợp có strict mode nó gọi 2 lần
   logoutFromNextClientToNextServer: (
     force?: boolean | undefined,
     signal?: AbortSignal | undefined
@@ -159,6 +167,9 @@ const apiAuthRequest = {
 
   resetPassword: (body: IResetPasswordBody) =>
     http.post<{message: string}>(path.resetPassword, body),
+
+  refreshToken: (refresh_token: string) =>
+    http.post<IGetNewToken>(path.refreshToken, {refresh_token}),
 };
 
 export default apiAuthRequest;

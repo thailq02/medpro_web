@@ -40,7 +40,7 @@ export default async function HomeHospital() {
                         alt={v.name || "hospital"}
                         width={500}
                         height={500}
-                        className="w-full h-full object-cover"
+                        className="size-full object-cover"
                       />
                     </div>
                     <div className="flex-1">

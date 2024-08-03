@@ -14,6 +14,8 @@
   background-color: white;
   border: 1px solid $text-graye0;
   display: flex;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 .sideBar {
   min-height: 300px;
@@ -86,7 +88,7 @@
     width: 100%;
     height: 100%;
     border-radius: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
 }
 .name,
@@ -138,7 +140,7 @@
     width: 100%;
     height: 100%;
     border-radius: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
 }
 .circle {
@@ -168,7 +170,7 @@
   left: 0;
   right: 0;
   background-color: white;
-  padding: 8px;
+  padding: 8px 0px;
 }
 
 .inputMsg {
@@ -222,5 +224,28 @@
 
   &::-webkit-scrollbar-thumb:hover {
     background-color: #a8bbbf !important;
+  }
+}
+
+@media (max-width: 1024.98px) {
+  .wrapper {
+    padding: 20px 0;
+  }
+  .sideBar {
+    max-width: fit-content;
+  }
+}
+@media (max-width: 940.98px) {
+  .container {
+    flex-direction: column;
+  }
+  .sideBar {
+    max-width: 100%;
+    min-height: unset;
+    width: 100%;
+    border-right: none;
+  }
+  .main {
+    border-top: 1px solid black;
   }
 }

@@ -44,22 +44,22 @@ export default async function HospitalDetail({
                     alt={hospital?.name || "Hospital Image"}
                     width={200}
                     height={200}
-                    className="w-full h-full object-contain rounded-lg"
+                    className="size-full object-contain rounded-lg"
                   />
                 </div>
                 <h2 className={styles.name}>{hospital?.name}</h2>
               </div>
               <div className={styles.info}>
                 <div className={styles.infoItem}>
-                  <LocationIcon className="w-4 h-4 flex-shrink-0 text-textLightOrange" />
+                  <LocationIcon className="size-4 flex-shrink-0 text-textLightOrange" />
                   <span>{hospital?.address}</span>
                 </div>
                 <div className={styles.infoItem}>
-                  <TimerIcon className="w-5 h-5 flex-shrink-0 text-textLightOrange" />
+                  <TimerIcon className="size-5 flex-shrink-0 text-textLightOrange" />
                   <span>{hospital?.session}</span>
                 </div>
                 <div className={styles.infoItem}>
-                  <HotlineIcon className="w-5 h-5 flex-shrink-0 text-textLightOrange" />
+                  <HotlineIcon className="size-5 flex-shrink-0 text-textLightOrange" />
                   <span>Hỗ trợ đặt khám: {hospital?.hotline}</span>
                 </div>
                 <ButtonGlobal
@@ -89,7 +89,7 @@ export default async function HospitalDetail({
                             alt={hospital?.name || "Hospital Image"}
                             width={500}
                             height={500}
-                            className="w-full h-full object-center rounded-2xl"
+                            className="size-full object-center rounded-2xl"
                           />
                         </CarouselItem>
                       ))}
@@ -113,7 +113,7 @@ export default async function HospitalDetail({
                 {hospital?.booking_forms?.map((v) => (
                   <div className="p-1" key={v.id}>
                     <Card className="border border-transparent transition-all cursor-pointer hover:border-textSecondary">
-                      <CardContent className="w-[160px] h-[160px] px-5 py-4">
+                      <CardContent className="size-[160px] px-5 py-4">
                         <Link
                           href={generateQueryString({
                             name: v.name || "",

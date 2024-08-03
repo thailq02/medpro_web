@@ -38,6 +38,7 @@ export async function POST(request: Request) {
       // },
     });
   } catch (error) {
+    console.log("Next-Server->Logout", error);
     if (error instanceof HttpError) {
       return Response.json(error.payload, {
         status: error.status,

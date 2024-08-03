@@ -16,7 +16,7 @@ export default function HomeDownload() {
               alt="Icon ios"
               width={1000}
               height={1000}
-              className="w-full h-full object-cover"
+              className="size-full object-cover"
             />
           </Link>
           <Link href="#" className="block w-[152px] h-[45px]">
@@ -25,7 +25,7 @@ export default function HomeDownload() {
               alt="Icon google play"
               width={1000}
               height={1000}
-              className="w-full h-full object-cover"
+              className="size-full object-cover"
             />
           </Link>
         </div>
@@ -43,13 +43,13 @@ export default function HomeDownload() {
                   Đăng ký khám theo bác sĩ chuyên khoa Tái khám theo lịch hẹn
                 </span>
               </div>
-              <div className="w-[60px] h-[60px] flex-shrink-0">
+              <div className="size-[60px] flex-shrink-0">
                 <Image
                   src="/img/icon_dang_ky.svg"
                   width={1000}
                   height={1000}
                   alt="dangky"
-                  className="w-full h-full object-cover"
+                  className="size-full object-cover"
                 />
               </div>
             </div>
@@ -62,13 +62,13 @@ export default function HomeDownload() {
                   môn
                 </span>
               </div>
-              <div className="w-[60px] h-[60px] flex-shrink-0">
+              <div className="size-[60px] flex-shrink-0">
                 <Image
                   src="/img/icon_message.svg"
                   width={1000}
                   height={1000}
                   alt="dangky"
-                  className="w-full h-full object-cover"
+                  className="size-full object-cover"
                 />
               </div>
             </div>
@@ -82,13 +82,13 @@ export default function HomeDownload() {
                   Tra cứu kết quả cận lâm sàng trực tuyến dễ dàng và tiện lợi
                 </span>
               </div>
-              <div className="w-[60px] h-[60px] flex-shrink-0">
+              <div className="size-[60px] flex-shrink-0">
                 <Image
                   src="/img/icon_capcuu.svg"
                   width={1000}
                   height={1000}
                   alt="dangky"
-                  className="w-full h-full object-cover"
+                  className="size-full object-cover"
                 />
               </div>
             </div>
@@ -113,13 +113,13 @@ export default function HomeDownload() {
 
           <div className={styles.right}>
             <div className={styles.serviceBox}>
-              <div className="w-[60px] h-[60px] flex-shrink-0">
+              <div className="size-[60px] flex-shrink-0">
                 <Image
                   src="/img/icon_payment.svg"
                   width={1000}
                   height={1000}
                   alt="dangky"
-                  className="w-full h-full object-cover"
+                  className="size-full object-cover"
                 />
               </div>
               <div className={styles.serviceMessageRight}>
@@ -134,13 +134,13 @@ export default function HomeDownload() {
             </div>
 
             <div className={styles.serviceBox}>
-              <div className="w-[60px] h-[60px] flex-shrink-0">
+              <div className="size-[60px] flex-shrink-0">
                 <Image
                   src="/img/icon_capcuu2.svg"
                   width={1000}
                   height={1000}
                   alt="dangky"
-                  className="w-full h-full object-cover"
+                  className="size-full object-cover"
                 />
               </div>
               <div className={styles.serviceMessageRight}>
@@ -153,13 +153,13 @@ export default function HomeDownload() {
             </div>
 
             <div className={styles.serviceBox}>
-              <div className="w-[60px] h-[60px] flex-shrink-0">
+              <div className="size-[60px] flex-shrink-0">
                 <Image
                   src="/img/icon_mangluoi.svg"
                   width={1000}
                   height={1000}
                   alt="dangky"
-                  className="w-full h-full object-cover"
+                  className="size-full object-cover"
                 />
               </div>
               <div className={styles.serviceMessageRight}>

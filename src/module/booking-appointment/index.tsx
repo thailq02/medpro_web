@@ -214,13 +214,13 @@ export default function BookingAppointment() {
               <div className={styles.leftBody}>
                 {isLoadingHospital ? (
                   <div className="flex items-start gap-2">
-                    <Skeleton className="w-5 h-5" />
+                    <Skeleton className="size-5" />
                     <Skeleton className="w-full h-10" />
                   </div>
                 ) : (
                   <ul>
                     <li>
-                      <HospitalIcon className="w-5 h-5 flex-shrink-0" />
+                      <HospitalIcon className="size-5 flex-shrink-0" />
                       <div className={styles.hospitalInfo}>
                         <span>{hospital?.payload?.data?.name ?? ""}</span>
                         <p className={styles.address}>
@@ -230,7 +230,7 @@ export default function BookingAppointment() {
                     </li>
                     {specialtyId && (
                       <li>
-                        <SuitcaseMedicalIcon className="w-5 h-5 flex-shrink-0" />
+                        <SuitcaseMedicalIcon className="size-5 flex-shrink-0" />
                         <div className={styles.hospitalInfo}>
                           <span>
                             Chuyên khoa:{" "}
@@ -243,7 +243,7 @@ export default function BookingAppointment() {
                     )}
                     {doctorId && (
                       <li>
-                        <StethoscopeIcon className="w-5 h-5 flex-shrink-0" />
+                        <StethoscopeIcon className="size-5 flex-shrink-0" />
                         <div className={styles.hospitalInfo}>
                           <span>
                             Bác sĩ:{" "}
@@ -258,7 +258,7 @@ export default function BookingAppointment() {
                     )}
                     {serviceId && (
                       <li>
-                        <HandHoldingMedicalIcon className="w-5 h-5 flex-shrink-0" />
+                        <HandHoldingMedicalIcon className="size-5 flex-shrink-0" />
                         <div className={styles.hospitalInfo}>
                           <span>Dịch vụ: {service?.payload?.data?.name}</span>
                         </div>
@@ -266,7 +266,7 @@ export default function BookingAppointment() {
                     )}
                     {dateSelected && (
                       <li>
-                        <CalendarIcon className="w-5 h-5 flex-shrink-0" />
+                        <CalendarIcon className="size-5 flex-shrink-0" />
                         <div className={styles.hospitalInfo}>
                           <span>Ngày khám: {dateSelected}</span>
                         </div>
@@ -287,7 +287,7 @@ export default function BookingAppointment() {
             <div className="mt-3">
               <Button variant={"ghost"} onClick={() => router.back()}>
                 Quay lại
-                <ResetIcon className="w-4 h-4 ml-2" />
+                <ResetIcon className="size-4 ml-2" />
               </Button>
             </div>
           </div>

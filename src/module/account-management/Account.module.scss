@@ -3,15 +3,19 @@
   width: 100%;
   padding: 0;
   z-index: 999999999;
-  height: 550px;
+  height: 100%;
+  max-height: 70vh;
+  overflow: hidden;
+  display: flex;
 }
 .cardContent {
-  max-height: 450px;
   overflow-y: scroll;
+  flex-grow: 1;
 }
 .tabContainer {
   display: flex;
   align-items: center;
+  flex: 1;
 }
 .sidebar {
   max-width: 230px;
@@ -26,11 +30,12 @@
 }
 .sidebarTitle {
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 600;
   color: #212126;
 }
 .sidebarDesc {
   color: #747686;
+  font-weight: 500;
   font-size: 13px;
 }
 .sidebarItem {
@@ -100,7 +105,7 @@
     flex-direction: column;
   }
   .cardContent {
-    max-height: 380px;
+    padding-bottom: 70px;
   }
   .sidebar {
     flex-direction: row;
@@ -120,7 +125,6 @@
     margin-top: 0 !important;
   }
   .appointmentTablet {
-    height: 380px;
     overflow: hidden auto;
   }
 }

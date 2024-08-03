@@ -129,7 +129,7 @@ export default function DoctorBooking() {
               alt="Banner"
               width={1000}
               height={1000}
-              className="w-full h-full object-contains"
+              className="size-full object-contains"
             />
           </div>
         </div>
@@ -137,7 +137,7 @@ export default function DoctorBooking() {
       <div className={styles.body}>
         <div className={styles.container}>
           <div className={styles.search}>
-            <MagnifyingGlassIcon className="w-5 h-5" />
+            <MagnifyingGlassIcon className="size-5" />
             <input
               type="search"
               placeholder="Tìm kiếm bác sĩ"
@@ -179,13 +179,13 @@ export default function DoctorBooking() {
                     key={doctor._id}
                   >
                     <div className="p-3 bg-white flex items-start gap-5">
-                      <div className="w-[120px] h-[120px] flex-shrink-0">
+                      <div className="size-[120px] flex-shrink-0">
                         <Image
                           src={doctor?.avatar || "/img/avatar/avatar.jpg"}
                           alt="Avatar"
                           width={120}
                           height={120}
-                          className="w-full h-full object-contain rounded-lg"
+                          className="size-full object-contain rounded-lg"
                         />
                       </div>
                       <div className="w-full">
@@ -242,7 +242,7 @@ export default function DoctorBooking() {
                     </div>
                     <div className={styles.frame}>
                       <div className="flex gap-2 items-start">
-                        <LocationIcon className="w-3 h-3" />
+                        <LocationIcon className="size-3" />
                         <div className={styles.groupAddress}>
                           <div className={styles.hospitalName}>
                             {doctor?.specialty?.hospital?.name}
@@ -300,7 +300,7 @@ function LoadingSkeleton() {
   return Array.from({length: 3}).map((_, index) => (
     <div className="rounded-2xl w-full overflow-hidden" key={index}>
       <div className="p-3 bg-white flex items-start gap-5">
-        <Skeleton className="w-[120px] h-[120px] rounded-lg flex-shrink-0" />
+        <Skeleton className="size-[120px] rounded-lg flex-shrink-0" />
         <div className="flex flex-col gap-2 w-full">
           <Skeleton className="w-full h-6 rounded-lg" />
           <Skeleton className="w-full h-5 rounded-lg" />

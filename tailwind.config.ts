@@ -76,6 +76,11 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      screens: {
+        "booking-576": "576.98px",
+        "booking-840": "840.98px",
+        "account-860": "860.98px",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

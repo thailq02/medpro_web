@@ -1,6 +1,7 @@
 import apiHospital from "@/apiRequest/ApiHospital";
 import {ACCESS_TOKEN, QUERY_PARAMS} from "@/apiRequest/common";
 import {baseOpenGraph} from "@/app/(home)/shared-metadata";
+import {jwtDecode} from "jwt-decode";
 import {Metadata} from "next";
 import dynamic from "next/dynamic";
 import {cookies} from "next/headers";
@@ -25,7 +26,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
   const hospitals = payload?.data;
   const hospital = hospitals.find((item) => item.slug === slug);
   if (hospital) {
-    const url = `https://lequangthai-medpro/${hospital.slug}`;
+    const url = `${process.env.NEXT_PUBLIC_URL}/${hospital.slug}`;
     return {
       category: "Cơ sở y tế",
       title: hospital.name,
@@ -33,7 +34,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
       openGraph: {
         title: hospital.name,
         description: hospital.description,
-        url, // URL khi deploy lên production
+        url,
         siteName: "Cơ sở y tế - Đặt lịch khám bệnh",
         images: [
           {
@@ -65,14 +66,31 @@ export default async function Page({params, searchParams}: Props) {
   if (slug === "verify-email") {
     const {token} = searchParams;
     let isError = false;
+    let isVerifyEmailSuccess = false;
+    let new_access_token = "";
+    let new_refresh_token = "";
+    let expiredAt = 0;
     try {
       const apiAuthRequest = (await import("@/apiRequest/ApiAuth")).default;
-      await apiAuthRequest.verifyEmail(token as string);
+      const data = await apiAuthRequest.verifyEmail(token as string);
+      new_access_token = data?.payload?.data.new_access_token;
+      new_refresh_token = data?.payload?.data.new_refresh_token;
+      expiredAt = jwtDecode(new_access_token).exp || 0;
+      isVerifyEmailSuccess = true;
     } catch (error) {
       isError = true;
-      console.log(error);
+      isVerifyEmailSuccess = false;
+      new_access_token = new_refresh_token = "";
+      expiredAt = 0;
+      console.log("verify-email", error);
     }
-    return <VerifyLayout isError={isError} />;
+    return (
+      <VerifyLayout
+        isError={isError}
+        isVerifyEmailSuccess={isVerifyEmailSuccess}
+        verifyEmailPayload={{new_access_token, new_refresh_token, expiredAt}}
+      />
+    );
   }
   if (slug === "forgot-password") {
     return <ForgotPassword />;
@@ -88,12 +106,12 @@ export default async function Page({params, searchParams}: Props) {
       await apiAuthRequest.verifyForgotPassword(token as string);
     } catch (error) {
       isError = true;
-      console.log(error);
+      console.log("verify-forgot-password", error);
     }
     return (
       <VerifyLayout
         isError={isError}
-        description="Bạn đã xác thực tài khoản thành công. Vui lòng đổi mật khẩu mới...."
+        description="Xác thực tài khoản thành công. Vui lòng đổi mật khẩu mới...."
         isForgotPassword
         token={token as string}
       />
@@ -111,7 +129,7 @@ export default async function Page({params, searchParams}: Props) {
           access_token: access_token?.value,
         });
       } catch (error) {
-        console.log(error);
+        console.log("payment", error);
       }
     }
     return (

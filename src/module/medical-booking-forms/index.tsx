@@ -54,7 +54,7 @@ export default function MedicalBookingForms({
           </div>
           <div className="text-left p-3">
             <Button variant={"ghost"}>
-              <ResetIcon className="mr-2 w-4 h-4" />
+              <ResetIcon className="mr-2 size-4" />
               <Link href={`/${CATE.CSYT}`}>Quay lại</Link>
             </Button>
           </div>

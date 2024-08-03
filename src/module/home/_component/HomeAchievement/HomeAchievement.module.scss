@@ -27,7 +27,6 @@
   font-size: 20px;
   line-height: 23px;
 }
-
 .logo {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -35,15 +34,6 @@
   margin-bottom: 50px;
 }
 
-.video {
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-  width: 100%;
-  iframe {
-    border-radius: 12px;
-  }
-}
 @media (max-width: 1024.98px) {
   .container {
     padding-left: 35px;

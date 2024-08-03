@@ -146,7 +146,7 @@ function SkeletionLoading() {
     <div className="bg-white p-3">
       {Array.from({length: 2}).map((_, index) => (
         <div className="flex items-start gap-4 mt-4" key={index}>
-          <Skeleton className="w-10 h-10 rounded-full" />
+          <Skeleton className="size-10 rounded-full" />
           <div className="w-full">
             <Skeleton className="w-full h-5" />
             <Skeleton className="w-full h-10 mt-4" />

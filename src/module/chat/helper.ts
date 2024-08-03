@@ -71,3 +71,7 @@ export const normalizeString = (str: string): string => {
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 };
+
+export const getLastName = (name: string): string => {
+  return name.split(" ").pop() || "";
+};

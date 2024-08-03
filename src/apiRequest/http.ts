@@ -118,7 +118,6 @@ const request = async <TResponse>(
   });
 
   const payload: TResponse = await res.json();
-  // console.log("request ~ payload", payload);
   const data = {
     status: res.status,
     payload,

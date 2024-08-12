@@ -472,7 +472,9 @@ export default function ConversationPage({
                   // reactionsDefaultOpen={true}
                   open={emojiPickerOpen}
                   className="!absolute !bottom-0 !right-9"
-                  onEmojiClick={(e) => setValue((prev) => prev + e.emoji)}
+                  onEmojiClick={(e) =>
+                    setValue((prev) => ({...prev, msg: prev.msg + e.emoji}))
+                  }
                   lazyLoadEmojis={true}
                   skinTonesDisabled={true}
                   previewConfig={{

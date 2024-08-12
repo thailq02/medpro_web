@@ -18,11 +18,11 @@ export default function displayError(dataError: IDataError): void {
   if (error) {
     errorMessage = error.description;
   } else {
-    errorMessage = dataError.errorMessage ?? "Somethings Wrong";
+    errorMessage = dataError.errorMessage ?? "Có lỗi xảy ra";
   }
   if (typeof window !== "undefined") {
     toast({
-      title: "Something is wrong. Please try again",
+      title: "Có lỗi xảy ra. Vui lòng thử lại",
       description: errorMessage,
       duration: 3000,
       variant: "destructive",

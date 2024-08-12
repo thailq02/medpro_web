@@ -77,9 +77,9 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       screens: {
-        "booking-576": "576.98px",
-        "booking-840": "840.98px",
-        "account-860": "860.98px",
+        "screen-576": "576.98px",
+        "screen-840": "840.98px",
+        "screen-860": "860.98px",
       },
     },
   },

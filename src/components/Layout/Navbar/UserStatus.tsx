@@ -4,6 +4,7 @@ import {ICategoryBody} from "@/apiRequest/ApiCategory";
 import {
   ACCESS_TOKEN,
   ACCESS_TOKEN_EXPIRED,
+  CATE,
   PROFILE,
   REFRESH_TOKEN,
   VerifyStatus,
@@ -210,7 +211,13 @@ export default function UserStatus({categoryData}: UserStatusProps) {
                         </div>
                         <Link
                           className="font-semibold text-base"
-                          href={`/${cate.slug}`}
+                          href={
+                            cate.slug === CATE.DVYT
+                              ? "#"
+                              : cate.slug === CATE.CSYT
+                              ? `/${CATE.CSYT}`
+                              : `/${cate.slug}`
+                          }
                           onClick={() => setIsCloseSheet(false)}
                         >
                           {cate.name}

@@ -66,7 +66,7 @@ export default function ResetPassword() {
     }
   }
   return (
-    <div className="size-full flex items-center justify-center p-20">
+    <div className="size-full flex items-center justify-center p-5 sm:p-20">
       <Card className="rounded-lg w-[500px]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -81,7 +81,7 @@ export default function ResetPassword() {
                 name="password"
                 render={({field}) => (
                   <FormItem className="space-y-1">
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Mật khẩu mới</FormLabel>
                     <FormControl>
                       <PasswordInput {...field} />
                     </FormControl>
@@ -94,7 +94,7 @@ export default function ResetPassword() {
                 name="confirm_password"
                 render={({field}) => (
                   <FormItem className="space-y-1 !mt-3">
-                    <FormLabel>Confirm password</FormLabel>
+                    <FormLabel>Nhập lại mật khẩu mới</FormLabel>
                     <FormControl>
                       <PasswordInput {...field} />
                     </FormControl>

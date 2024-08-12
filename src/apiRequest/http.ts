@@ -156,7 +156,9 @@ const request = async <TResponse>(
             localStorage.removeItem(ACCESS_TOKEN_EXPIRED);
             localStorage.removeItem(PROFILE);
             clientLogoutRequest = null;
-            location.href = "/login";
+            if (!location.pathname.startsWith("/login")) {
+              location.href = "/login";
+            }
           }
         } else {
           redirect(`/login`);

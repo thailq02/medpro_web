@@ -12,16 +12,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "source.unsplash.com",
-      },
-      {
-        protocol: "http",
-        hostname: "localhost",
-        port: "4004",
+        hostname: "be.lequangthai-medpro.io.vn",
       },
       {
         protocol: "https",
-        hostname: "be.lequangthai-medpro.io.vn",
+        hostname: "**",
       },
     ],
   },

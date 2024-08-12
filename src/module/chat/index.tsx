@@ -49,24 +49,22 @@ export default function ChatPage() {
   const isTablet = useMediaQuery(940);
 
   useEffect(() => {
-    socket.connect();
-  }, []);
-
-  useEffect(() => {
     if (!user || !user._id) return;
-    socket.on("online_users", (data: IOnlineUsers[]) => {
-      console.log("online_users", data);
+    const handleOnlineUsers = (data: IOnlineUsers[]) => {
       setOnlineUsers(data);
-    });
+    };
+    const handleConversation = (data: IConversationWithLastMessage[]) => {
+      setAllUser(data);
+    };
+    socket.on("online_users", handleOnlineUsers);
+    socket.on("conversation", handleConversation);
+    socket.emit("sidebar", user._id);
+    return () => {
+      socket.off("online_users", handleOnlineUsers);
+      socket.off("conversation", handleConversation);
+    };
   }, [user]);
 
-  useEffect(() => {
-    if (!user || !user._id) return;
-    socket.emit("sidebar", user._id);
-    socket.on("conversation", (data: IConversationWithLastMessage[]) => {
-      setAllUser(data);
-    });
-  }, [user]);
   const filteredUsers = allUser.filter((user) =>
     normalizeString(user.name).includes(normalizeString(searchValue.trim()))
   );

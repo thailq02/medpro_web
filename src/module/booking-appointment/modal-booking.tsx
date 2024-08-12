@@ -129,7 +129,7 @@ export default function ModalBookingAppointment({
   }
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-      <AlertDialogContent className="z-[9999] !max-w-[90vw] !max-h-[80vh] p-3 overflow-x-hidden overflow-y-scroll scrollbar-global booking-576:p-6 booking-840:!max-w-[65vw] booking-840:!max-h-[70vh]">
+      <AlertDialogContent className="z-[9999] !max-w-[90vw] !max-h-[80vh] p-3 overflow-x-hidden overflow-y-scroll scrollbar-global screen-576:p-6 screen-840:!max-w-[65vw] screen-840:!max-h-[70vh]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <AlertDialogHeader>
@@ -137,7 +137,7 @@ export default function ModalBookingAppointment({
                 Thông tin về đặt lịch khám bệnh
               </AlertDialogTitle>
             </AlertDialogHeader>
-            <div className="flex flex-col items-center gap-5 !mt-4 booking-576:flex-row booking-576:items-start booking-576:mt-8">
+            <div className="flex flex-col items-center gap-5 !mt-4 screen-576:flex-row screen-576:items-start screen-576:mt-8">
               <div className="size-[90px]">
                 <Image
                   src={doctor?.avatar || "/img/avatar/avatar.jpg"}
@@ -147,7 +147,7 @@ export default function ModalBookingAppointment({
                   className="rounded-full size-full"
                 />
               </div>
-              <div className="flex flex-col items-center gap-1 font-semibold booking-576:items-start">
+              <div className="flex flex-col items-center gap-1 font-semibold screen-576:items-start">
                 <span>
                   {renderPosition(doctor?.position as number)}{" "}
                   {doctor?.name || "Bác sĩ thuộc bệnh viện"}
@@ -160,7 +160,7 @@ export default function ModalBookingAppointment({
                 </span>
               </div>
             </div>
-            <div className="grid grid-cols-1 gap-5 booking-576:grid-cols-2">
+            <div className="grid grid-cols-1 gap-5 screen-576:grid-cols-2">
               <div className="flex flex-col gap-3">
                 <FormField
                   control={form.control}

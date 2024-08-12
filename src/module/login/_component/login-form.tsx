@@ -1,6 +1,5 @@
 "use client";
 import apiAuthRequest, {IGetMeResBody} from "@/apiRequest/ApiAuth";
-import {handleErrorApi} from "@/apiRequest/ErrorMessage/errors";
 import {
   ACCESS_TOKEN,
   ACCESS_TOKEN_EXPIRED,
@@ -110,14 +109,15 @@ export default function LoginForm(props: LoginFormProps) {
         router.push("/");
         router.refresh();
       } else {
-        toast({
-          title: "Thất bại",
-          description: result.payload.message,
-          duration: 5000,
-        });
+        throw result;
       }
-    } catch (error) {
-      handleErrorApi({error, setError: form.setError, duration: 4000});
+    } catch (error: any) {
+      toast({
+        title: "Đăng nhập thất bại",
+        description: error.payload.message,
+        duration: 5000,
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }

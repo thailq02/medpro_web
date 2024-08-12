@@ -8,6 +8,12 @@ import ApiUploadImage from "@/apiRequest/ApiUploadImage";
 import {AppContext} from "@/app/(home)/AppProvider";
 import {CirclePlusIcon, SpinnerIcon} from "@/components/Icon";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {QUERY_KEY} from "@/hooks/QUERY_KEY";
 import socket from "@/lib/socket";
 import {
@@ -17,7 +23,12 @@ import {
   renderUserStatus,
   scrollToBottom,
 } from "@/module/chat/helper";
-import {FaceIcon, ImageIcon, PaperPlaneIcon} from "@radix-ui/react-icons";
+import {
+  Cross2Icon,
+  FaceIcon,
+  ImageIcon,
+  PaperPlaneIcon,
+} from "@radix-ui/react-icons";
 import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
 import clsx from "clsx";
 import dayjs from "dayjs";
@@ -28,6 +39,7 @@ import {
   UIEvent,
   useContext,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -56,14 +68,36 @@ export default function ConversationPage({
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
 
   const [isTextareaScrolled, setIsTextareaScrolled] = useState<boolean>(false);
   const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
   const [openImageUpload, setOpenImageUpload] = useState<boolean>(false);
-  const [value, setValue] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [value, setValue] = useState<{msg: string; img: File | null}>({
+    msg: "",
+    img: null,
+  });
   const [preview, setPreview] = useState<string>("");
   const [emojiPickerOpen, setEmojiPickerOpen] = useState<boolean>(false);
+
+  const updatePaddingBottom = () => {
+    if (footerRef.current && chatContainerRef.current) {
+      const shouldApplyPadding = window.innerWidth < 940;
+      const footerHeight = shouldApplyPadding
+        ? footerRef.current.offsetHeight
+        : 0;
+      chatContainerRef.current.style.paddingBottom = `${footerHeight}px`;
+      scrollToBottom(chatContainerRef);
+    }
+  };
+
+  useEffect(() => {
+    updatePaddingBottom();
+    window.addEventListener("resize", updatePaddingBottom);
+    return () => {
+      window.removeEventListener("resize", updatePaddingBottom);
+    };
+  }, []);
 
   useEffect(() => {
     const adjustTextareaHeight = () => {
@@ -97,7 +131,7 @@ export default function ConversationPage({
         textareaRef.current?.selectionStart === 0 &&
         textareaRef.current?.selectionEnd === textareaRef.current.value.length
       ) {
-        setValue("");
+        setValue({msg: "", img: null});
         textareaRef.current.style.height = "auto";
         setIsTextareaScrolled(false);
       }
@@ -154,23 +188,22 @@ export default function ConversationPage({
   useEffect(() => {
     if (!user || !user._id) return;
     socket.on("receive_message", (data: {payload: IConversationBody}) => {
-      console.log(data);
       const {payload} = data;
       setMessages((message) => [...message, payload]);
       scrollToBottom(chatContainerRef);
     });
     socket.on("connect_error", (err: any) => {
-      console.log(err.data);
+      console.log("connect_error", err.data);
     });
     socket.on("disconnect", (reason) => {
-      console.log(reason);
+      console.log("disconnect", reason);
     });
     return () => {
       socket.disconnect();
     };
   }, [setMessages, user]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!conversations) return;
     const newConversations = conversations.pages
       ?.map((conversation) => {
@@ -193,25 +226,22 @@ export default function ConversationPage({
     }
   }, [conversations, isFirstLoad, setMessages]);
 
-  const handleUploadImage = async (file: File) => {
-    const formData = new FormData();
-    if (file) {
-      formData.append("image", file);
-      const uploadPhoto = await ApiUploadImage.uploadImage(formData);
-      setOpenImageUpload(false);
-      setImageUrl(uploadPhoto.payload.data[0].url as string);
-    }
-  };
-
   const handleUploadImageOpen = () => {
     setOpenImageUpload((preve) => !preve);
   };
 
-  const send = (e: FormEvent<HTMLFormElement>) => {
+  const send = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (value || imageUrl) {
+    let imageUrl = "";
+    if (value.img) {
+      const formData = new FormData();
+      formData.append("image", value.img);
+      const uploadPhoto = await ApiUploadImage.uploadImage(formData);
+      imageUrl = uploadPhoto.payload.data[0].url as string;
+    }
+    if (value.msg || imageUrl) {
       const conversation = {
-        content: value.trim(),
+        content: value.msg.trim(),
         sender_id: user?._id,
         receiver_id: userByUsername?.payload?.data?._id,
         imgUrl: imageUrl,
@@ -219,8 +249,9 @@ export default function ConversationPage({
       socket.emit("send_message", {
         payload: conversation,
       });
-      setValue("");
-      setImageUrl("");
+      scrollToBottom(chatContainerRef);
+      setValue({msg: "", img: null});
+      URL.revokeObjectURL(preview);
       setPreview("");
       setEmojiPickerOpen(false);
       setMessages((message) => [
@@ -230,7 +261,6 @@ export default function ConversationPage({
           _id: new Date().getTime().toString(),
         },
       ]);
-      scrollToBottom(chatContainerRef);
       if (textareaRef.current) {
         textareaRef.current.style.height = "auto";
         setIsTextareaScrolled(false);
@@ -246,6 +276,11 @@ export default function ConversationPage({
         chatContainerRef.current?.scrollTo({top: 1, behavior: "smooth"});
       }, 0);
     }
+  };
+
+  const handleDeleteImage = () => {
+    setPreview("");
+    URL.revokeObjectURL(preview);
   };
 
   return (
@@ -295,32 +330,51 @@ export default function ConversationPage({
                 <SpinnerIcon className="size-5 animate-spin" />
               </div>
             )}
+
             <div className="flex flex-col gap-2 py-2 mx-2">
               {messages.map((conversation) => (
                 <div
                   className={clsx(
-                    "p-1 py-1 rounded w-fit max-w-[380px] md:max-w-sm lg:max-w-md",
+                    "p-1 py-1 rounded w-fit max-w-[380px] md:max-w-sm lg:max-w-md text-[18px]",
                     user?._id === conversation?.sender_id
-                      ? "ml-auto bg-teal-100"
-                      : "bg-white"
+                      ? "ml-auto bg-[#0082ff] text-white"
+                      : "bg-[#f0f0f0] text-black"
                   )}
                   key={conversation._id}
                 >
-                  <div className="w-full relative">
-                    {conversation.imgUrl && (
-                      <Image
-                        src={conversation?.imgUrl}
-                        alt="Avatar"
-                        className="size-full object-scale-down"
-                        width={1000}
-                        height={1000}
-                      />
-                    )}
-                  </div>
-                  <p className="px-2">{conversation.content}</p>
-                  <p className="text-xs ml-auto w-fit">
-                    {dayjs(conversation.created_at).format("hh:mm")}
-                  </p>
+                  <TooltipProvider delayDuration={100}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="w-full">
+                          <div className="w-full relative">
+                            {conversation.imgUrl && (
+                              <Image
+                                src={conversation?.imgUrl}
+                                alt="Avatar"
+                                className="size-full object-scale-down"
+                                width={1000}
+                                height={1000}
+                              />
+                            )}
+                          </div>
+                          <p className="px-2">{conversation.content}</p>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side={
+                          user?._id === conversation?.sender_id
+                            ? "left"
+                            : "right"
+                        }
+                      >
+                        <p className="text-xs ml-auto w-fit">
+                          {dayjs(conversation.created_at).format(
+                            "DD/MM/YYYY h:mm A"
+                          )}
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
               ))}
             </div>
@@ -363,8 +417,9 @@ export default function ConversationPage({
                       id="uploadImage"
                       onChange={(e) => {
                         const {files, displayUrl} = getImageData(e);
-                        handleUploadImage(files[0]);
+                        setValue((prev) => ({...prev, img: files![0]}));
                         setPreview(displayUrl);
+                        setOpenImageUpload(false);
                       }}
                       className="hidden"
                     />
@@ -377,10 +432,19 @@ export default function ConversationPage({
             <div className={styles.inputMsg}>
               <div className="flex flex-1 flex-col w-full max-h-[250px]">
                 {preview && (
-                  <Avatar className="size-24 border border-black rounded-sm">
-                    <AvatarImage src={preview} />
-                    <AvatarFallback>TH</AvatarFallback>
-                  </Avatar>
+                  <div className="relative p-1 size-24">
+                    <Avatar className="size-full rounded-sm">
+                      <AvatarImage src={preview} />
+                      <AvatarFallback>TH</AvatarFallback>
+                    </Avatar>
+                    <div
+                      className="absolute top-0 -right-2 rounded-full bg-white text-black p-1 border border-gray-300 cursor-pointer hover:bg-opacity-85"
+                      role="button"
+                      onClick={handleDeleteImage}
+                    >
+                      <Cross2Icon className="w-5 h-5" />
+                    </div>
+                  </div>
                 )}
                 <textarea
                   ref={textareaRef}
@@ -388,8 +452,10 @@ export default function ConversationPage({
                   dir="auto"
                   rows={1}
                   className={styles.messageBox}
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
+                  value={value.msg}
+                  onChange={(e) =>
+                    setValue((prev) => ({...prev, msg: e.target.value}))
+                  }
                 />
               </div>
               <div

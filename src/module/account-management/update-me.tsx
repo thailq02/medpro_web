@@ -105,7 +105,7 @@ export default function UpdateMeForm() {
   }
   return (
     <Card className="h-full overflow-y-scroll scrollbar-global">
-      <CardHeader className="account-860:sticky account-860:top-0 account-860:z-10 account-860:bg-white">
+      <CardHeader className="screen-860:sticky screen-860:top-0 screen-860:z-10 screen-860:bg-white">
         <CardTitle className="border-b border-gray-300 pb-4">
           Thông tin cá nhân
         </CardTitle>

@@ -15,7 +15,7 @@ export const checkUserOnline = ({
   onlineUsers: IOnlineUsers[];
   user_id: string;
 }) => {
-  if (!onlineUsers) return false;
+  if (!onlineUsers.length) return false;
   return onlineUsers.some(
     (user) => user.user_id === user_id && user.last_online === null
   );
@@ -47,21 +47,16 @@ export const scrollToBottom = (ref: RefObject<HTMLDivElement>) => {
         behavior: "smooth",
       });
     }
-  }, 30);
+  }, 200);
 };
 
 export function getImageData(event: ChangeEvent<HTMLInputElement>) {
-  // FileList is immutable, so we need to create a new one
   const dataTransfer = new DataTransfer();
-
-  // Add newly uploaded images
   Array.from(event.target.files!).forEach((image) =>
     dataTransfer.items.add(image)
   );
-
   const files = dataTransfer.files;
   const displayUrl = URL.createObjectURL(event.target.files![0]);
-
   return {files, displayUrl};
 }
 

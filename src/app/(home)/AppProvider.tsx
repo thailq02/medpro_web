@@ -48,7 +48,7 @@ export default function AppProvider({children}: {children: React.ReactNode}) {
     (user: User | null) => {
       setUserState(user);
       if (typeof window !== "undefined") {
-        localStorage.setItem(PROFILE, JSON.stringify(user));
+        localStorage?.setItem(PROFILE, JSON.stringify(user));
       }
     },
     [setUserState]
@@ -56,7 +56,7 @@ export default function AppProvider({children}: {children: React.ReactNode}) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const _user = localStorage.getItem(PROFILE);
+      const _user = localStorage?.getItem(PROFILE) || null;
       setUserState(_user ? JSON.parse(_user) : null);
     }
   }, [setUserState]);

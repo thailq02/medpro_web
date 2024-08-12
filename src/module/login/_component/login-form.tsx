@@ -52,9 +52,11 @@ const setLocalStorage = (
   data: Omit<NonNullableProps<LoginFormProps>, "profile">
 ) => {
   const {access_token, refresh_token, expired_at} = data;
-  localStorage.setItem(ACCESS_TOKEN, access_token);
-  localStorage.setItem(REFRESH_TOKEN, refresh_token);
-  localStorage.setItem(ACCESS_TOKEN_EXPIRED, expired_at?.toString());
+  if (typeof window !== "undefined") {
+    localStorage.setItem(ACCESS_TOKEN, access_token);
+    localStorage.setItem(REFRESH_TOKEN, refresh_token);
+    localStorage.setItem(ACCESS_TOKEN_EXPIRED, expired_at?.toString());
+  }
 };
 
 export default function LoginForm(props: LoginFormProps) {

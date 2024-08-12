@@ -55,9 +55,11 @@ export default function VerifyLayout({
   useEffect(() => {
     if (me.data && isVerifyEmailSuccess) {
       setUser(me.data.payload.data);
-      localStorage.setItem(ACCESS_TOKEN, newAccessToken);
-      localStorage.setItem(REFRESH_TOKEN, newRefreshToken);
-      localStorage.setItem(ACCESS_TOKEN_EXPIRED, expiredAt.toString());
+      if (typeof window !== "undefined") {
+        localStorage.setItem(ACCESS_TOKEN, newAccessToken);
+        localStorage.setItem(REFRESH_TOKEN, newRefreshToken);
+        localStorage.setItem(ACCESS_TOKEN_EXPIRED, expiredAt.toString());
+      }
       const setCookie = async () => {
         await apiAuthRequest.auth({
           access_token: newAccessToken,

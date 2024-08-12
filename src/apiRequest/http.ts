@@ -138,7 +138,7 @@ const request = async <TResponse>(
         }
       );
     } else if (res.status === IStatus.UNAUTHORIZED) {
-      if (typeof window !== undefined) {
+      if (isClient) {
         if (!clientLogoutRequest) {
           clientLogoutRequest = fetch("/api/auth/logout", {
             method: "POST",
@@ -150,6 +150,7 @@ const request = async <TResponse>(
           try {
             await clientLogoutRequest;
           } catch (error) {
+            console.error("clientLogoutRequest", error);
           } finally {
             localStorage.removeItem(ACCESS_TOKEN);
             localStorage.removeItem(REFRESH_TOKEN);
